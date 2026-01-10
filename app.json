@@ -1,0 +1,115 @@
+
+{
+  "expo": {
+    "name": "ARKIVE",
+    "slug": "ARKIVE",
+    "version": "1.2.34",
+    "orientation": "portrait",
+    "icon": "./assets/arkiveTransparent.png",
+    "userInterfaceStyle": "light",
+    "developmentClient": true,
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/arkiveTransparent.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#121212"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.smartsoftware.sas",
+      "urlScheme": "staark" 
+    },
+    "android": {
+      "versionCode": 139,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#000"
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "useNextNotificationsApi": true,
+      "package": "com.sparktech.sas",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyC4fsrgciACjhUacg9umvRHflrJJHFovdY"
+        }
+      },
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "staark"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+      "react-native-share",
+      {
+        "ios": [
+          "fb",
+          "instagram",
+          "twitter",
+          "tiktoksharesdk"
+        ],
+        "android": [
+          "com.facebook.katana",
+          "com.instagram.android",
+          "com.twitter.android",
+          "com.zhiliaoapp.musically"
+        ],
+        "enableBase64ShareAndroid": true
+      }
+    ],
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.com.your-app-name", 
+          "enableGooglePay": true 
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      [
+        "expo-document-picker",
+        {
+          "iCloudContainerEnvironment": "Production"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "2.0.21",
+            "freeCompilerArgs": [
+              "-Xskip-prerelease-check",
+              "-P", 
+              "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+            ]
+          }
+        }
+      ],
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "3a9c2bc7-dac6-4dff-bf85-d913b1398ccb"
+      }
+    }
+  }
+}
