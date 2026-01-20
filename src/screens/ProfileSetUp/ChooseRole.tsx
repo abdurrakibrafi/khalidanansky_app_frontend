@@ -38,6 +38,8 @@ const ChooseRole = () => {
   const [userRole] = useState<number[]>([1, 2])
   const [role, setRole] = useState(0)
   const [toggleLan,setToggleLan]=useState(false)
+
+  
   return (
     <LinearGradient
       colors={["#00084F", "#010531"]}
@@ -89,7 +91,7 @@ const ChooseRole = () => {
             </View>
           </View>
 
-          <TouchableOpacity className="mt-2 mb-3 p-3 items-center bg-[#062AD6] rounded-lg overflow-hidden" onPress={()=>navigation.navigate("Build Identity")}>
+          <TouchableOpacity className="mt-2 mb-3 p-3 items-center bg-[#062AD6] rounded-lg overflow-hidden" onPress={()=>navigation.navigate(role==1?"Build Identity":"Profile Setup Agent")}>
             <Text className="text-white text-xl font-instrumentSansBold" >Continue</Text>
           </TouchableOpacity>
 

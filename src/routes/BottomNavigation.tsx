@@ -8,6 +8,7 @@ import Bage from "src/screens/Bage/Bage";
 import Feed from "src/screens/Feed/Feed";
 import { DrawerNavigation } from "./DrawerNavigation";
 import Search from "src/screens/Search/Search";
+import LeaderBoard from "src/screens/LeaderBoard/LeaderBoard";
 
 const CustomTabBarButton = ({ children, onPress, accessibilityState }: any) => {
   const focused = accessibilityState.selected;
@@ -96,13 +97,13 @@ export const BottomNavigation = () => {
         />
 
         <BottomTabs.Screen
-          name="Search"
-          component={Search}
+          name="LeaderBoard"
+          component={LeaderBoard}
           options={{
             tabBarIcon: ({ focused }) => (
               <View style={{ alignItems: "center" }}>
                 <Image source={require("../../assets/e-icon/search-olive.png")} style={{ width: 24, height: 24 }} />
-                {focused && <Text className="text-center w-[50]" style={{ color: "#2ECC71", fontSize: 10 }}>Search</Text>}
+                {focused && <Text className="text-center w-[50]" style={{ color: "#2ECC71", fontSize: 10 }}>Leader Board</Text>}
               </View>
             ),
             tabBarButton: (props) => <CustomTabBarButton {...props} />,

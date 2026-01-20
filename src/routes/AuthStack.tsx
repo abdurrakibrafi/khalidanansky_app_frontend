@@ -14,6 +14,9 @@ import ChooseRole from 'src/screens/ProfileSetUp/ChooseRole';
 import BuildIdentity from 'src/screens/ProfileSetUp/BuildIdentity';
 import TierInitialize from 'src/screens/ProfileSetUp/TierInitialize';
 import RecommendedList from 'src/screens/RecommendedList/RecommendedList';
+import ProfileSetupAgent from 'src/screens/ProfileSetUp/ProfileSetupAgent';
+import VerificationAgent from 'src/screens/ProfileSetUp/VerificationAgent';
+import Preferences from 'src/screens/ProfileSetUp/Preferences';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +36,9 @@ const AuthStack = () => {
       <Stack.Screen options={{headerShown:false}} name="ChooseRole" component={ChooseRole}/>
       <Stack.Screen options={{headerShown:true}} name="Build Identity" component={BuildIdentity}/>
       <Stack.Screen options={{headerShown:true}} name="Tier Initialize" component={TierInitialize}/>
+      <Stack.Screen options={{headerShown:true}} name="Profile Setup Agent" component={ProfileSetupAgent}/>
+      <Stack.Screen options={{headerShown:true}} name="Verification Agent" component={VerificationAgent}/>
+      <Stack.Screen options={{headerShown:true}} name="Preferences" component={Preferences}/>
      
     </Stack.Navigator>
   );

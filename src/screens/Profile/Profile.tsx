@@ -1,217 +1,91 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  ImageSourcePropType,
-} from "react-native";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { AntDesign } from "@expo/vector-icons";
-import { moderateScale, scale, verticalScale } from "react-native-size-matters";
-import { useAppSelector } from "src/redux/hooks";
-import Posts from "../Feed/Posts";
-import CreatePostModal from "../Feed/CreatePostModal";
-import { useGetIndividualPostQuery, useGetLookbookQuery, useGetProfileQuery } from "src/redux/features/profile/profile/profileApi";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import Lookbook from "./Lookbook";
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
+import React, { useLayoutEffect, useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
+import { LinearGradient } from 'expo-linear-gradient'
+import { Feather } from '@expo/vector-icons'
+import { scale } from 'react-native-size-matters'
+import * as Progress from 'react-native-progress';
+import Overview from './Overview'
+import Stats from './Stats'
+import Videos from './Videos'
+import Followers from './Followers'
 
-type ProfileItemsProp = {
-  icon: ImageSourcePropType;
-  label: string;
-  onPress: () => void;
-};
+const routeSub = {
+  Overview: <Overview/>,
+  Stats: <Stats/>,
+  Videos: <Videos/>,
+  Followers: <Followers/>,
+}
 
-type RootStackParamList = {
-  Settings: undefined;
-  Address: undefined;
-  About: undefined;
-  Privacy: undefined;
-  Terms: undefined;
-};
-
-type NavigationProp = StackNavigationProp<RootStackParamList>;
-
-export default function YourComponent() {
-  const token = useAppSelector((state) => state.auth.token)
-  const [isPosts, setIsPosts] = useState("Posts")
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const navigation = useNavigation<NavigationProp>();
-  const [profile, setProfile] = useState(null);
-  const [postLoadlimit, setPostLoadlimit] = useState(10);
-  const [saveLoadlimit, setSaveLoadlimit] = useState(10);
-  const { data: getLookbook } = useGetLookbookQuery({ token, limit: saveLoadlimit });
-  const { data: getPostData } = useGetIndividualPostQuery({ token, uid: profile?.data?.data?._id, limit: postLoadlimit })
-  const userType = useAppSelector((state) => state.auth.userType)
-
-
-  useEffect(() => {
-    const loadProfile = async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem('user_profile');
-        if (jsonValue != null) {
-          setProfile(JSON.parse(jsonValue));
-        }
-      } catch (e) {
-        console.error("Failed to load profile from AsyncStorage", e);
-      }
-    };
-
-    loadProfile();
-  }, []);
-  useFocusEffect(
-    useCallback(() => {
-      const loadProfile = async () => {
-        try {
-          const jsonValue = await AsyncStorage.getItem('user_profile');
-          if (jsonValue != null) {
-            setProfile(JSON.parse(jsonValue));
-          }
-        } catch (e) {
-          console.error("Failed to load profile from AsyncStorage", e);
-        }
-      };
-      loadProfile();
-      return () => {
-      };
-
-    }, [])
-  );
+const Profile = () => {
+  const navigation = useNavigation()
+  const [subSection, setSubSection] = useState("Overview")
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerStyle: { backgroundColor: "#121212" },
-      headerTintColor: "white"
+      headerBackground: () => (
+        <LinearGradient
+          colors={["#00084F", "#010531"]}
+          start={{ x: 0, y: 1 }}
+          end={{ x: 0, y: 1 }}
+          className="w-full "
+          style={{ flex: 1 }}
+        />
+      ),
+      headerTintColor: "#fff",
+      headerTitle: 'Profile',
+      headerTitleAlign: 'center',
+      headerTitleStyle: {
+        fontSize: 20,
+        fontFamily: "inter",
+        color: "#fff",
+        fontWeight: "900"
+      },
+      // headerBackTitleVisible: ,
+      headerBackTitleStyle: { display: 'none' },
+      headerBackTitle: '',
+      headerLeft: null,
+      headerRight: () => (
+        <TouchableOpacity className='p-3' onPress={()=>navigation.navigate("Setting")}><Feather name="settings" size={24} color="white" /></TouchableOpacity>
+      )
     })
   }, [navigation])
 
-
-  const handleModal = () => {
-    setIsModalOpen(true)
-  }
-
-
-
   return (
-    <View className="flex-1 relative">
-      <TouchableOpacity className='absolute right-10 bottom-4 z-10 bg-[#1D3725] p-3 rounded-full' onPress={handleModal}>
-        <AntDesign name="plus" size={24} color="white" />
-      </TouchableOpacity>
-      <ScrollView
-        contentContainerStyle={{
-          paddingBottom: verticalScale(40),
-          alignItems: 'center',
-        }}
-        style={{ flex: 1, backgroundColor: '#121212' }}
+    <View className='flex-1 items-center '>
+      <LinearGradient
+        colors={["#00084F", "#010531"]}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 0, y: 1 }}
+        className="w-full items-center"
+        style={{ flex: 1, padding: 10 }}
       >
+        <View className='w-full border border-[#D1D6DB] mb-4 ' />
 
-        <View
-          style={{
-            width: '92%',
-            height: verticalScale(300),
-            borderRadius: moderateScale(24),
-            overflow: 'hidden',
-            marginTop: verticalScale(16),
+        <View style={{ width: scale(100), height: scale(100), borderRadius: scale(100) / 2, overflow: "hidden", borderColor: "white", borderWidth: 5 }}><Image source={require("../../../assets/scout/Image.png")} style={{ width: "100%", height: "100%" }} /></View>
+        <Text className='font-bold text-2xl text-white mt-3 text-center'>Hi, Robert Cary</Text>
+        <Text className=' text-xl text-[#D1D6DB] mt-1 text-center'>XP: 12,345 / 15,000</Text>
+        <Text className=' text-xl text-[#D1D6DB] mt-1 text-center'>Midfielder | Forward</Text>
 
-          }}
-        >
-          <Image
-            source={{uri:profile?.data?.coverPhoto?.[0]}}
-            style={{
-              width: '100%',
-              height: verticalScale(250),
-              borderRadius: moderateScale(24),
-            }}
-            resizeMode="cover"
-          />
-
-          {/* Profile Image (centered bottom) */}
-          <View
-            style={{
-              width: scale(102),
-              height: scale(102),
-              position: 'absolute',
-              bottom: verticalScale(12),
-              left: '50%',
-              transform: [{ translateX: -scale(102) / 2 }],
-              borderRadius: scale(102) / 2,
-              overflow: 'hidden',
-              borderWidth: 4,
-              borderColor: 'white',
-              zIndex: 10,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            {profile?.data? (
-              userType === "Brand" ? (
-                <Image
-                  source={{ uri: profile?.data?.brandLogo?.[0] }}
-                  style={{ width: "100%", height: "100%" }}
-                  resizeMode="cover"
-                />
-              ) : (
-                <Image
-                  source={{ uri: profile?.data?.profile?.[0] }}
-                  style={{ width: "100%", height: "100%" }}
-                  resizeMode="cover"
-                />
-              )
-            ) : (
-              <Image
-                source={require("../../../assets/e-icon/img (1).png")}
-                style={{ width: '100%', height: '100%' }}
-                resizeMode="cover"
-              />
-            )}
-          </View>
+        <Text className='text-white text-xl font-bold w-full mt-5 mb-5'>XP Progress</Text>
+        <Progress.Bar progress={0.3} width={400} />
+        <View className='mt-4 mb-2 flex-row '>
+          <View className='flex-1'><TouchableOpacity className='items-center' onPress={() => setSubSection("Overview")}><Text className={`${subSection == "Overview" ? "text-[#2444FF]" : "text-white"} text-center font-medium text-2xl`}>Overview</Text></TouchableOpacity>
+            <View className={`w-full border  ${subSection == "Overview" ? "border-[#2444FF]" : "border-white"} mt-2`} /></View>
+          <View className='flex-1'><TouchableOpacity className='items-center' onPress={() => setSubSection("Stats")}><Text className={`${subSection == "Stats" ? "text-[#2444FF]" : "text-white"} text-center font-medium text-2xl`} >Stats</Text></TouchableOpacity>
+            <View className={`w-full border  ${subSection == "Stats" ? "border-[#2444FF]" : "border-white"} mt-2`} /></View>
+          <View className='flex-1'><TouchableOpacity className='items-center' onPress={() => setSubSection("Videos")}><Text className={`${subSection == "Videos" ? "text-[#2444FF]" : "text-white"} text-center font-medium text-2xl`}>Videos</Text></TouchableOpacity>
+            <View className={`w-full border  ${subSection == "Videos" ? "border-[#2444FF]" : "border-white"} mt-2`} /></View>
+          <View className='flex-1'><TouchableOpacity className='items-center' onPress={() => setSubSection("Followers")}><Text className={`${subSection == "Followers" ? "text-[#2444FF]" : "text-white"} text-center font-medium text-2xl`} >Followers</Text></TouchableOpacity>
+            <View className={`w-full border  ${subSection == "Followers" ? "border-[#2444FF]" : "border-white"} mt-2`} /></View>
         </View>
+        <ScrollView className='w-full'>
+          {routeSub[subSection as keyof typeof routeSub]}
+        </ScrollView>
 
-        <View className='w-[92%] items-center'>
-          <Text className='text-white text-center font-instrumentSansBold mb-1' >{userType == "Brand" ? profile?.data?.brandName : profile?.data?.userName}</Text>
-          <Text className='text-white font-instrumentSansSemiBold text-center'>{profile?.data?.theme}</Text>
-          <View className='mt-3 flex-row gap-3'>
-            <View className='bg-[#252525] p-2 items-center rounded-xl'>
-              <Text className='text-white font-instrumentRegular'>{profile?.data?.totalPosts | 0}</Text>
-              <Text className='text-[#9CA3AF] font-instrumentRegular' >Posts</Text>
-            </View>
-            <View className='bg-[#252525] p-2 items-center rounded-xl'>
-              <Text className='text-white font-instrumentRegular'>{profile?.data?.totalReacts | 0}</Text>
-              <Text className='text-[#9CA3AF] font-instrumentRegular' >Likes</Text>
-            </View>
-            <View className='bg-[#252525] p-2 items-center rounded-xl'>
-              <Text className='text-white font-instrumentRegular'>{profile?.data?.totalFollowing | 0}</Text>
-              <Text className='text-[#9CA3AF] font-instrumentRegular' >Followings</Text>
-            </View>
-            <View className='bg-[#252525] p-2 items-center rounded-xl'>
-              <Text className='text-white font-instrumentRegular'>{profile?.data?.totalFollowers | 0}</Text>
-              <Text className='text-[#9CA3AF] font-instrumentRegular' >Followers</Text>
-            </View>
-          </View>
-        </View>
-        <View>
-
-        </View>
-
-        <View className='w-[92%] flex-row gap-3 mt-2 mb-3 justify-center items-center'>
-          <TouchableOpacity className={`${isPosts == "Posts" ? "border-b border-b-white" : ""} py-1`} onPress={() => setIsPosts("Posts")}>
-            <Text className='font-instrumentSansBold text-white' >Posts</Text>
-          </TouchableOpacity>
-          <TouchableOpacity className={`${isPosts == "Details" ? "border-b border-b-white" : ""} py-1`} onPress={() => setIsPosts("Details")}>
-            <Text className='font-instrumentSansBold text-white' >My Lookbook</Text>
-          </TouchableOpacity>
-        </View>
-        {isPosts == "Posts" ? <Posts data={getPostData?.data} setPostLoad={setPostLoadlimit} currentLimit={postLoadlimit} /> : <Lookbook data={getLookbook?.data} setFavLimit={setSaveLoadlimit} currentSave={saveLoadlimit} />}
-      </ScrollView>
-      <CreatePostModal visible={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      </LinearGradient>
     </View>
-  );
-
-
+  )
 }
 
-
+export default Profile

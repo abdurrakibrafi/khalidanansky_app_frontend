@@ -55,3 +55,72 @@ export const recommendedList = [{
 },
 
 ]
+
+export const leaderBoard = [{
+    image: require("../../assets/scout/Image.png"),
+    name: "Ethan Carter",
+    Level: "Level 10",
+    hash:'#2'
+},
+{
+    image: require("../../assets/scout/Image.png"),
+    name: "Liam Bennett",
+    Level: "Level 10",
+    hash:'#2'
+},
+{
+    image: require("../../assets/scout/Image.png"),
+    name: "Ethan Carter",
+    Level: "Level 10",
+    hash:'#2'
+},
+{
+    image: require("../../assets/scout/Image.png"),
+    name: "Ethan Liam Bennett",
+    Level: "Level 10",
+    hash:'#2'
+},
+{
+    image: require("../../assets/scout/Image.png"),
+    name: "Ethan Liam Bennett",
+    Level: "Level 10",
+    hash:'#2'
+},
+{
+    image: require("../../assets/scout/Image.png"),
+    name: "Ethan Liam Bennett",
+    Level: "Level 10",
+    hash:'#2'
+},
+{
+    image: require("../../assets/scout/Image.png"),
+    name: "Ethan Liam Bennett",
+    Level: "Level 10",
+    hash:'#2'
+},
+{
+    image: require("../../assets/scout/Image.png"),
+    name: "Ethan Liam Bennett",
+    Level: "Level 10",
+    hash:'#2'
+},
+{
+    image: require("../../assets/scout/Image.png"),
+    name: "Ethan Liam Bennett",
+    pLevel: "Level 10",
+    hash:'#2'
+},
+{
+    image: require("../../assets/scout/Image.png"),
+    name: "Ethan Liam Bennett",
+    Level: "Level 10",
+    hash:'#2'
+},
+{
+    image: require("../../assets/scout/Image.png"),
+    name: "Ethan Liam Bennett",
+    Level: "Level 10",
+    hash:'#2'
+},
+
+]

@@ -28,8 +28,8 @@ const ProviderHomePage = () => {
                     </View>
 
                     <View className='flex-row gap-2'>
-                        <Image source={require("../../../assets/scout/scSrch.png")} style={{ width: 40, height: 40 }} />
-                        <Image source={require("../../../assets/scout/Vector.png")} style={{ width: 35, height: 35 }} />
+                        <TouchableOpacity onPress={()=>navigation.navigate("Search")}><Image source={require("../../../assets/scout/scSrch.png")} style={{ width: 40, height: 40 }} /></TouchableOpacity>
+                        <TouchableOpacity onPress={()=>navigation.navigate("Notification")}><Image source={require("../../../assets/scout/Vector.png")} style={{ width: 35, height: 35 }} /></TouchableOpacity>
                     </View>
                 </View>
 
@@ -47,7 +47,7 @@ const ProviderHomePage = () => {
                     </ScrollView>
 
                     <View className='flex-col gap-3 mt-3'>
-                        {recommendedList?.map(item => <TouchableOpacity>
+                        {recommendedList?.map(item => <TouchableOpacity onPress={()=>navigation.navigate("Video Details")}>
                             <View className='flex-row items-center gap-2 mb-2 mt-2'>
                                 <Image source={require("../../../assets/scout/shahriar.jpeg")} style={{ width: 44, height: 44, borderRadius: 50, borderColor: "#C8592A", borderWidth: 1 ,}} />
                                 <View>

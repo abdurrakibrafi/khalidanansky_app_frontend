@@ -2,14 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { BottomNavigation } from "./BottomNavigation";
 import { 
-  Profile,
-  AboutUs,
-  Privacy,
-  Terms,
-  Address,
   Setting,
-  ChangePassword,
-  EditProfile,
   PaymentAnimation,
   PaymentInfo,
   TrackOrder,
@@ -31,30 +24,29 @@ import BrandDetails from "src/screens/Bage/BrandDetails";
 import BrandProducts from "src/screens/Bage/BrandProducts";
 import ProductDetails from "src/screens/Bage/ProductDetails";
 import UsersORBrandProfile from "src/screens/Feed/UsersORBrandProfile";
-import MyFavourite from "src/screens/Profile/MyFavourite";
-import OrderHistory from "src/screens/Profile/OrderHistory";
-import OrderDetails from "src/screens/Profile/OrderDetails";
 import CartPage from "src/screens/Cart/CartPage";
 import Review from "src/screens/Review/Review";
 import Products from "src/screens/Products/Products";
 import AddProducts from "src/screens/Products/AddProducts";
 import AllProducts from "src/screens/Products/AllProducts";
-import SellerProfile from "src/screens/Profile/SellerProfile";
-import BrandProfile from "src/screens/Profile/BrandProfile";
 import SeeAllProducts from "src/screens/Bage/SeeAllProducts";
 import SeeAllBrands from "src/screens/Bage/SeeAllBrands";
 import OrderList from "src/screens/Orders/OrderList";
 import SearchResult from "src/screens/Search/SearchModal";
 import DetailsProduct from "src/screens/Products/DetailsProduct";
-import Reward from "src/screens/Profile/Reward";
 import EditProducts from "src/screens/Products/EditProducts";
 import SearchPage from "src/screens/Search/SearchPage";
 import PaymentScreen from "src/screens/Payment/PaymentScreen";
 import Transaction from "src/screens/Earning/Transaction";
-import OrderHistoryDetails from "src/screens/Profile/orderHistoryDetails";
 import { RootStackParamList } from "src/types/screens";
 import RecommendedList from "src/screens/RecommendedList/RecommendedList";
 import ShortVideo from "src/screens/RecommendedList/ShortVideo";
+import Search from "src/screens/Search/Search";
+import Notification from "src/screens/Notification/Notification";
+import VideoDetails from "src/screens/VideoDetailsWithProfile/VideoDetails";
+import ProfileDetails from "src/screens/VideoDetailsWithProfile/ProfileDetails";
+import VerificationAgent from "src/screens/ProfileSetUp/VerificationAgent";
+import MyRoaster from "src/screens/Roaster/MyRoaster";
 
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -73,7 +65,7 @@ const StackNavigation = () => {
       <Stack.Navigator
         screenOptions={{
           cardStyle: {
-            backgroundColor: "#121212",
+            backgroundColor: "#00084F",
           },
           headerStyle: {
             elevation: 0,
@@ -95,18 +87,9 @@ const StackNavigation = () => {
           }}
         />}
         {/* <Stack.Screen name="Notification" component={} /> */}
-        <Stack.Screen name="Profile" options={{headerShown:false}} component={Profile} />
+        {/* <Stack.Screen name="Profile" options={{headerShown:false}} component={Profile} /> */}
 
-        <Stack.Screen name="about" component={AboutUs}/>
-        <Stack.Screen name="Privacy" component={Privacy}/>
-        <Stack.Screen name="Terms" component={Terms}/>
-        <Stack.Screen name="Address" component={Address}/>
         <Stack.Screen name="Setting" component={Setting}/>
-        <Stack.Screen name="Edit Profile" component={EditProfile}/>
-        <Stack.Screen name="Change Password" component={ChangePassword}/>
-        <Stack.Screen name="My Favourite" component={MyFavourite}/>
-        <Stack.Screen name="Order History" component={OrderHistory}/>
-        <Stack.Screen name="Order Details" component={OrderDetails}/>
         <Stack.Screen name="Order List" options={{headerShown:true}} component={OrderList}/>
 
         <Stack.Screen name="Payment Animation" options={{headerShown:false}} component={PaymentAnimation}/>
@@ -138,16 +121,19 @@ const StackNavigation = () => {
         <Stack.Screen name="Add Products" options={{headerShown:true}} component={AddProducts}/>
         <Stack.Screen name="Edit Products" options={{headerShown:true}} component={EditProducts}/>
         <Stack.Screen name="All Products" options={{headerShown:true}} component={AllProducts}/>
-         <Stack.Screen name="Seller Profile" options={{headerShown:true}} component={SellerProfile}/>
-        <Stack.Screen name="Brand Profile" options={{headerShown:true}} component={BrandProfile}/>
-        <Stack.Screen name="Reward" options={{headerShown:true}} component={Reward}/>
         <Stack.Screen name="Payment screen" options={{headerShown:true}} component={PaymentScreen}/>
         <Stack.Screen name="Transaction" options={{headerShown:true}} component={Transaction}/>
-        <Stack.Screen name="OrderHistoryDetails" options={{headerShown:true}} component={OrderHistoryDetails}/>
 
 
          <Stack.Screen options={{headerShown:true}} name="Recommended List" component={RecommendedList}/>
          <Stack.Screen options={{headerShown:false}} name="Short video" component={ShortVideo}/>
+         <Stack.Screen options={{headerShown:true}} name="Search" component={Search}/>
+         <Stack.Screen options={{headerShown:true}} name="Notification" component={Notification}/>
+         <Stack.Screen options={{headerShown:true}} name="Video Details" component={VideoDetails}/>
+         <Stack.Screen options={{headerShown:true}} name="Profile Details" component={ProfileDetails}/>
+         <Stack.Screen options={{headerShown:true}} name="Roaster" component={MyRoaster}/>
+         
+
 
       </Stack.Navigator>
     // </NavigationContainer>

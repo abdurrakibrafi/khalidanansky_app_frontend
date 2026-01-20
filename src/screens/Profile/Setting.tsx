@@ -3,6 +3,8 @@ import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { Entypo } from '@expo/vector-icons'
 import { settingItems } from 'src/constants/settingItems'
+import { LinearGradient } from 'expo-linear-gradient'
+import { scale } from 'react-native-size-matters'
 
 const Setting = () => {
 
@@ -10,71 +12,52 @@ const Setting = () => {
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            title: "Settings",
-            headerStyle: { backgroundColor: "white" ,
-                elevation: 0, // for Android
-  shadowOpacity: 0, // for iOS
-  borderBottomWidth: 0, // for iOS
+            headerBackground: () => (
+                <LinearGradient
+                    colors={["#00084F", "#010531"]}
+                    start={{ x: 0, y: 1 }}
+                    end={{ x: 0, y: 1 }}
+                    className="w-full "
+                    style={{ flex: 1 }}
+                />
+            ),
+            headerTintColor: "#fff",
+            headerTitle: 'Settings',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+                fontSize: 20,
+                fontFamily: "inter",
+                color: "#fff",
+                fontWeight: "900"
             },
-            headerTintColor: "black",
-            headerTitleAlign: "center",
+            // headerBackTitleVisible: ,
+            headerBackTitleStyle: { display: 'none' },
+            headerBackTitle: '',
             headerLeft: () => (
-                <TouchableOpacity className='p-1' onPress={() => navigation.goBack()}>
-                    <View className='w-[35px] h-[35px] border border-red-100 items-center justify-center rounded-full' >
-                        <Entypo name="chevron-small-left" size={24} color="red" />
-                    </View>
+                <TouchableOpacity className='flex-row gap-2 items-center p-2' onPress={() => navigation.goBack()}>
+                    <Entypo name="chevron-thin-left" size={24} color="white" />
                 </TouchableOpacity>
-            )
+            ),
         })
     }, [navigation])
 
-    const handleDelete =()=>{
-
-    }
-
-    const SettingsItem = ({ icon, label, onPress }: any) => {
-        return (<TouchableOpacity onPress={onPress} className="flex-row justify-between border p-2 m-2 rounded-xl border-gray-300 w-full" >
-            <View className='flex-row items-center justify-between p-2 w-full'>
-                <View className='flex-row items-center gap-2'>
-                    <Image source={icon} style={{width:24,height:24}}/>
-                    <Text className='text-[#626262] text-xl font-robotoBold '>{label}</Text>
-                </View>
-                <View>
-                    <View className='p-1' >
-                    <View className='w-[35px] h-[35px] border border-gray-200 items-center justify-center rounded-full' >
-                        <Entypo name="chevron-small-right" size={24} color="black" />
-                    </View>
-                    </View>
-                </View>
-            </View>
-        </TouchableOpacity>)
-    }
-
     return (
-        <View className='flex-1 p-2 items-center'>
-            {settingItems.map((item, index) => (
-                <SettingsItem
-                    key={index}
-                    icon={item.icon}
-                    label={item.label}
-                    onPress={() => navigation.navigate(item.route)}
-                />
-            ))}
-            <TouchableOpacity onPress={handleDelete} className="flex-row justify-between border p-2 m-2 rounded-xl border-gray-300 w-full" >
-            <View className='flex-row items-center justify-between p-2 w-full'>
-                <View className='flex-row items-center gap-2'>
-                    <Image source={require("../../../assets/restroIcon/Delete.png")} style={{width:24,height:24}}/>
-                    <Text className='text-[#B20000] text-xl font-robotoBold'>Delete Account</Text>
-                </View>
-                <View>
-                    <View className='p-1' >
-                    <View className='w-[35px] h-[35px] border border-gray-200 items-center justify-center rounded-full' >
-                        <Entypo name="chevron-small-right" size={24} color="black" />
-                    </View>
-                </View>
-                </View>
-            </View>
-        </TouchableOpacity>
+        <View className='flex-1 items-center '>
+            <LinearGradient
+                colors={["#00084F", "#010531"]}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 0, y: 1 }}
+                className="w-full items-center"
+                style={{ flex: 1, padding: 10 }}
+            >
+                <View className='w-full border border-[#D1D6DB] mb-4 ' />
+
+                <View style={{ width: scale(100), height: scale(100), borderRadius: scale(100) / 2, overflow: "hidden", borderColor: "white", borderWidth: 5 }}><Image source={require("../../../assets/scout/Image.png")} style={{ width: "100%", height: "100%" }} /></View>
+                <Text className='font-bold text-2xl text-white mt-3 text-center'>Hi, Robert Cary</Text>
+                <Text className=' text-xl text-[#D1D6DB] mt-1 text-center'>XP: 12,345 / 15,000</Text>
+                <Text className=' text-xl text-[#D1D6DB] mt-1 text-center'>Midfielder | Forward</Text>
+
+            </LinearGradient>
         </View>
     )
 }
