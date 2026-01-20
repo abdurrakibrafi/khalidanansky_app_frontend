@@ -6,3 +6,6 @@ ios/
 .env
 
 .DS_Store
+
+eas.json
+
