@@ -12,8 +12,9 @@ import { useGetProfileQuery } from "src/redux/features/profile/profile/profileAp
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MainLayout = () => {
-  // const token = useAppSelector((state) => state.auth.token);
-  const token=1
+  const token = useAppSelector((state) => state.auth.token);
+  // const token=0
+  console.log(token)
   const [isSplashVisible, setIsSplashVisible] = useState(true);
   const {data:getProfile,isSuccess}=useGetProfileQuery(token)
 
@@ -54,28 +55,11 @@ const MainLayout = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // ✅ Wait for BOTH fonts and splash timer
   const isAppReady = fontsLoaded && !isSplashVisible;
 
   if (!isAppReady) {
     return <SplashScreen />;
   }
-
-  // const oldRender = Text.render;
-  // Text.render = function (...args) {
-  //   const origin = oldRender.call(this, ...args);
-
-  //   // if icon font already set, don't override
-  //   const style = Array.isArray(origin.props.style) ? origin.props.style : [origin.props.style];
-  //   const hasCustomFont = style.some((s) => s && s.fontFamily);
-
-  //   return React.cloneElement(origin, {
-  //     style: hasCustomFont
-  //       ? origin.props.style // keep icon font
-  //       : [origin.props.style, { fontFamily: "HelveticaNeue-Black" }],
-  //   });
-  // };
-
 
   return (
     <>

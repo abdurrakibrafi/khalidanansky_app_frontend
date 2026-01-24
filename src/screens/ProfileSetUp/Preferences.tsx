@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { AntDesign, Entypo, Feather, FontAwesome } from '@expo/vector-icons'
 import CreateProductSelecPicker from 'src/components/ui/products/CreateProductSelecPicker'
+import { setToken } from 'src/redux/features/auth/authSlice'
+import { useDispatch } from 'react-redux'
 
 const Preferences = () => {
     const navigation = useNavigation()
@@ -43,6 +45,8 @@ const Preferences = () => {
         })
     }, [navigation])
 
+    const dispatch = useDispatch()
+
     return (
         <View className='flex-1 '>
             <LinearGradient
@@ -77,7 +81,7 @@ const Preferences = () => {
                 </ScrollView>
 
 
-                <TouchableOpacity className="mt-2 mb-3 p-3 items-center bg-[#062AD6] rounded-lg overflow-hidden " onPress={() => navigation.navigate("Preferences")}>
+                <TouchableOpacity className="mt-2 mb-3 p-3 items-center bg-[#062AD6] rounded-lg overflow-hidden " onPress={() => dispatch(setToken(2))}>
                     <Text className="text-white text-xl font-instrumentSansBold" >Next</Text>
                 </TouchableOpacity>
 

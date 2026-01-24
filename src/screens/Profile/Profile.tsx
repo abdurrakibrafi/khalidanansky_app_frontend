@@ -9,17 +9,19 @@ import Overview from './Overview'
 import Stats from './Stats'
 import Videos from './Videos'
 import Followers from './Followers'
+import { useAppSelector } from 'src/redux/hooks'
 
 const routeSub = {
-  Overview: <Overview/>,
-  Stats: <Stats/>,
-  Videos: <Videos/>,
-  Followers: <Followers/>,
+  Overview: <Overview />,
+  Stats: <Stats />,
+  Videos: <Videos />,
+  Followers: <Followers />,
 }
 
 const Profile = () => {
   const navigation = useNavigation()
   const [subSection, setSubSection] = useState("Overview")
+  const userType = useAppSelector((state) => state.auth.userType)
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -46,7 +48,7 @@ const Profile = () => {
       headerBackTitle: '',
       headerLeft: null,
       headerRight: () => (
-        <TouchableOpacity className='p-3' onPress={()=>navigation.navigate("Setting")}><Feather name="settings" size={24} color="white" /></TouchableOpacity>
+        <TouchableOpacity className='p-3' onPress={() => navigation.navigate("Setting")}><Feather name="settings" size={24} color="white" /></TouchableOpacity>
       )
     })
   }, [navigation])
@@ -67,13 +69,50 @@ const Profile = () => {
         <Text className=' text-xl text-[#D1D6DB] mt-1 text-center'>XP: 12,345 / 15,000</Text>
         <Text className=' text-xl text-[#D1D6DB] mt-1 text-center'>Midfielder | Forward</Text>
 
-        <Text className='text-white text-xl font-bold w-full mt-5 mb-5'>XP Progress</Text>
-        <Progress.Bar progress={0.3} width={400} />
+        {userType==1&&<><Text className='text-white text-xl font-bold w-full mt-5 mb-5'>XP Progress</Text>
+        <Progress.Bar progress={0.3} width={400} /></>}
+
+          
+          {userType==2 &&<><View className='flex-row items-center gap-2 mt-3 w-full'>
+            <View className='flex-1 flex-row items-center gap-2 bg-[#2444FF]/50 p-2 rounded-md'>
+              <Image source={require("../../../assets/scout/pf1.png")} style={{width:36,height:36}}/>
+              <View>
+                <Text className='text-[#fff]/50 text-xl '>Discovered</Text>
+                <Text className='text-[#fff] text-2xl font-medium'>6</Text>
+              </View>
+            </View>
+            <View className='flex-1 flex-row items-center gap-2 bg-[#2444FF]/50 p-2 rounded-md'>
+              <Image source={require("../../../assets/scout/pf2.png")} style={{width:36,height:36}}/>
+              <View>
+                <Text className='text-[#fff]/50 text-xl '>Shortlisted</Text>
+                <Text className='text-[#fff] text-2xl font-medium'>6</Text>
+              </View>
+            </View>
+          </View>
+
+          <View className='flex-row items-center gap-2 mt-3 w-full'>
+            <View className='flex-1 flex-row items-center gap-2 bg-[#2444FF]/50 p-2 rounded-md'>
+              <Image source={require("../../../assets/scout/pf3.png")} style={{width:36,height:36}}/>
+              <View>
+                <Text className='text-[#fff]/50 text-xl '>Top Regions</Text>
+                <Text className='text-[#fff] text-2xl font-medium'>6</Text>
+              </View>
+            </View>
+            <View className='flex-1 flex-row items-center gap-2 bg-[#2444FF]/50 p-2 rounded-md'>
+              <Image source={require("../../../assets/scout/pf4.png")} style={{width:36,height:36}}/>
+              <View>
+                <Text className='text-[#fff]/50 text-xl '>New Videos</Text>
+                <Text className='text-[#fff] text-2xl font-medium'>6</Text>
+              </View>
+            </View>
+          </View></>}
+
+
         <View className='mt-4 mb-2 flex-row '>
           <View className='flex-1'><TouchableOpacity className='items-center' onPress={() => setSubSection("Overview")}><Text className={`${subSection == "Overview" ? "text-[#2444FF]" : "text-white"} text-center font-medium text-2xl`}>Overview</Text></TouchableOpacity>
             <View className={`w-full border  ${subSection == "Overview" ? "border-[#2444FF]" : "border-white"} mt-2`} /></View>
-          <View className='flex-1'><TouchableOpacity className='items-center' onPress={() => setSubSection("Stats")}><Text className={`${subSection == "Stats" ? "text-[#2444FF]" : "text-white"} text-center font-medium text-2xl`} >Stats</Text></TouchableOpacity>
-            <View className={`w-full border  ${subSection == "Stats" ? "border-[#2444FF]" : "border-white"} mt-2`} /></View>
+          {userType == 1 && <View className='flex-1'><TouchableOpacity className='items-center' onPress={() => setSubSection("Stats")}><Text className={`${subSection == "Stats" ? "text-[#2444FF]" : "text-white"} text-center font-medium text-2xl`} >Stats</Text></TouchableOpacity>
+            <View className={`w-full border  ${subSection == "Stats" ? "border-[#2444FF]" : "border-white"} mt-2`} /></View>}
           <View className='flex-1'><TouchableOpacity className='items-center' onPress={() => setSubSection("Videos")}><Text className={`${subSection == "Videos" ? "text-[#2444FF]" : "text-white"} text-center font-medium text-2xl`}>Videos</Text></TouchableOpacity>
             <View className={`w-full border  ${subSection == "Videos" ? "border-[#2444FF]" : "border-white"} mt-2`} /></View>
           <View className='flex-1'><TouchableOpacity className='items-center' onPress={() => setSubSection("Followers")}><Text className={`${subSection == "Followers" ? "text-[#2444FF]" : "text-white"} text-center font-medium text-2xl`} >Followers</Text></TouchableOpacity>

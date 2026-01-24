@@ -36,8 +36,8 @@ type TAuthData = {
   profile: null;
   companyAuth: null | string;
   BASE_URL: string | null;
-  userType: string | null;
-  token: boolean
+  userType: number | null;
+  token: boolean,
 };
 
 const initialState: TAuthData = {
@@ -48,7 +48,7 @@ const initialState: TAuthData = {
   companyAuth: null,
   BASE_URL: null,
   userType: null,
-  token: false
+  token: false,
 };
 
 const authSlice = createSlice({

@@ -4,11 +4,14 @@ import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { AntDesign, Entypo } from '@expo/vector-icons'
 import CreateProductSelecPicker from 'src/components/ui/products/CreateProductSelecPicker'
+import { setToken } from 'src/redux/features/auth/authSlice'
+import { useDispatch } from 'react-redux'
 
 const TierInitialize = () => {
     const [tags] = useState(["Speedster", "Finisher", "Playmaker", "Strong", "Defender", "Goalkeeper", "Dribbler", "Creative"])
     const [selectedTags, setSelectedTags] = useState([])
     const navigation = useNavigation()
+    const dispatch=useDispatch()
     useLayoutEffect(() => {
         navigation.setOptions({
             headerBackground: () => (
@@ -42,7 +45,6 @@ const TierInitialize = () => {
     const handleTags = (item: any) => {
         setSelectedTags((prev: any) => prev?.includes(item) ? prev.filter((tag: any) => tag !== item) : [...prev, item])
     }
-    console.log(selectedTags, "tags..")
     return (
         <View className='flex-1 '>
             <LinearGradient
@@ -89,7 +91,7 @@ const TierInitialize = () => {
                     <TextInput placeholder='Dream. Train. Dominate.' placeholderTextColor={"#CBD5E1"} style={{ color: "#CBD5E1", fontSize: 20 }} />
                     <View className='w-full border border-[#BFC5CC] mb-4 mt-3' />
                 </ScrollView>
-                <TouchableOpacity className="mt-2 mb-3 p-3 items-center bg-[#062AD6] rounded-lg overflow-hidden " onPress={() => navigation.navigate("Tier Initialize")}>
+                <TouchableOpacity className="mt-2 mb-3 p-3 items-center bg-[#062AD6] rounded-lg overflow-hidden " onPress={() => dispatch(setToken(1))}>
                     <Text className="text-white text-xl font-instrumentSansBold" >Continue</Text>
                 </TouchableOpacity>
 

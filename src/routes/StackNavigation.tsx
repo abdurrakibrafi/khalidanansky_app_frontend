@@ -47,6 +47,17 @@ import VideoDetails from "src/screens/VideoDetailsWithProfile/VideoDetails";
 import ProfileDetails from "src/screens/VideoDetailsWithProfile/ProfileDetails";
 import VerificationAgent from "src/screens/ProfileSetUp/VerificationAgent";
 import MyRoaster from "src/screens/Roaster/MyRoaster";
+import MapScreen from "src/screens/Map/Map";
+import ProfileInformation from "src/screens/Profile/ProfileInformation";
+import VerificationDoc from "src/screens/Profile/VerificationDoc";
+import PrivacySettings from "src/screens/Profile/PrivacySettings";
+import Terms from "src/screens/Profile/Terms";
+import Language from "src/screens/Profile/Language";
+import RequestDetails from "src/screens/Confirmation/RequestDetails";
+import MyShort from "src/screens/Profile/MyShortList";
+import MyContributions from "src/screens/Profile/MyContributions";
+import RejectVideo from "src/screens/Profile/RejectVideo";
+import MyTags from "src/screens/Profile/Mytags";
 
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -132,6 +143,16 @@ const StackNavigation = () => {
          <Stack.Screen options={{headerShown:true}} name="Video Details" component={VideoDetails}/>
          <Stack.Screen options={{headerShown:true}} name="Profile Details" component={ProfileDetails}/>
          <Stack.Screen options={{headerShown:true}} name="Roaster" component={MyRoaster}/>
+         <Stack.Screen options={{headerShown:true}} name="Profile Information" component={ProfileInformation}/>
+         <Stack.Screen options={{headerShown:true}} name="Verification Doc" component={VerificationDoc}/>
+         <Stack.Screen options={{headerShown:true}} name="Privacy Settings" component={PrivacySettings}/>
+         <Stack.Screen options={{headerShown:true}} name="Terms" component={Terms}/>
+         <Stack.Screen options={{headerShown:true}} name="Language" component={Language}/>
+         <Stack.Screen options={{headerShown:true}} name="Request Details" component={RequestDetails}/>
+         <Stack.Screen options={{headerShown:true}} name="Shortlist" component={MyShort}/>
+         <Stack.Screen options={{headerShown:true}} name="My Contributions" component={MyContributions}/>
+         <Stack.Screen options={{headerShown:true}} name="Reject Video" component={RejectVideo}/>
+         <Stack.Screen options={{headerShown:true}} name="My Tags" component={MyTags}/>
          
 
 

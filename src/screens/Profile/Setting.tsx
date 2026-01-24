@@ -5,10 +5,16 @@ import { Entypo } from '@expo/vector-icons'
 import { settingItems } from 'src/constants/settingItems'
 import { LinearGradient } from 'expo-linear-gradient'
 import { scale } from 'react-native-size-matters'
+import { setToken, setUserType } from 'src/redux/features/auth/authSlice'
+import { useDispatch } from 'react-redux'
+import { useAppSelector } from 'src/redux/hooks'
 
 const Setting = () => {
-
+    const token=useAppSelector((state)=>state.auth.token)
+    
     const navigation = useNavigation()
+    const dispatch = useDispatch()
+    console.log(token)
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -41,6 +47,11 @@ const Setting = () => {
         })
     }, [navigation])
 
+    const handleLogout=()=>{
+    dispatch(setToken(null))
+    dispatch(setUserType(null))
+  }
+
     return (
         <View className='flex-1 items-center '>
             <LinearGradient
@@ -57,9 +68,32 @@ const Setting = () => {
                 <Text className=' text-xl text-[#D1D6DB] mt-1 text-center'>XP: 12,345 / 15,000</Text>
                 <Text className=' text-xl text-[#D1D6DB] mt-1 text-center'>Midfielder | Forward</Text>
 
+                <View className='flex-1 mt-5 w-full p-3'>
+                    {settingItems?.map(item => 
+                    <>
+                    <TouchableOpacity className='flex-row items-center justify-between w-full  m-2 mb-2' onPress={()=>navigation.navigate(item?.route)}>
+                        <View className='flex-row gap-2 items-center'>
+                            <Image source={item?.icon} style={{ width: 20, height: 20 }} />
+                            <Text className=' text-xl text-[#D1D6DB] mt-1 text-center'>{item?.label}</Text>
+                        </View>
+                        <Entypo name="chevron-small-right" size={24} color="white" />
+                    </TouchableOpacity>
+                     <View className='w-full border border-[#D1D6DB] mb-4 ' />
+                    </>
+                )}
+                <TouchableOpacity className='flex-row items-center justify-between w-full  m-2 mb-2' onPress={handleLogout}>
+                        <View className='flex-row gap-2 items-center'>
+                            <Image source={require("../../../assets/scout/scLog.png")} style={{ width: 20, height: 20 }} />
+                            <Text className=' text-xl text-[#D1D6DB] mt-1 text-center'>Log out</Text>
+                        </View>
+                        <Entypo name="chevron-small-right" size={24} color="white" />
+                    </TouchableOpacity>
+                </View>
+
             </LinearGradient>
         </View>
     )
 }
 
 export default Setting
+         

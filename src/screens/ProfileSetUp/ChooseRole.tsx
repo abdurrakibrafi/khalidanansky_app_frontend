@@ -6,6 +6,8 @@ import { scale, verticalScale } from 'react-native-size-matters'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Entypo, FontAwesome, MaterialIcons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { setUserType } from 'src/redux/features/auth/authSlice'
 
 const dataForRole = {
   1: {
@@ -18,27 +20,18 @@ const dataForRole = {
   },
 }
 
-const chooseLan = {
-  1: {
-    image: require("../../../assets/scout/eng.png"),
-    name: "English"
-  },
-  2: {
-    image: require("../../../assets/scout/arab.png"),
-    name: "Arabic"
-  },
-  3: {
-    image: require("../../../assets/scout/france.png"),
-    name: "France"
-  },
-}
-
 const ChooseRole = () => {
   const navigation=useNavigation()
   const [userRole] = useState<number[]>([1, 2])
   const [role, setRole] = useState(0)
   const [toggleLan,setToggleLan]=useState(false)
 
+  const dispatch=useDispatch()
+
+  const handleRole=()=>{
+    dispatch(setUserType(role))
+    navigation.navigate(role==1?"Build Identity":"Profile Setup Agent")
+  }
   
   return (
     <LinearGradient
@@ -91,7 +84,7 @@ const ChooseRole = () => {
             </View>
           </View>
 
-          <TouchableOpacity className="mt-2 mb-3 p-3 items-center bg-[#062AD6] rounded-lg overflow-hidden" onPress={()=>navigation.navigate(role==1?"Build Identity":"Profile Setup Agent")}>
+          <TouchableOpacity className="mt-2 mb-3 p-3 items-center bg-[#062AD6] rounded-lg overflow-hidden" onPress={handleRole}>
             <Text className="text-white text-xl font-instrumentSansBold" >Continue</Text>
           </TouchableOpacity>
 

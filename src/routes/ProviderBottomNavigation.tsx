@@ -24,6 +24,7 @@ import Earning from "src/screens/Earning/Earning";
 import LeaderBoard from "src/screens/LeaderBoard/LeaderBoard";
 import Confirmation from "src/screens/Confirmation/Confirmation";
 import MyRoaster from "src/screens/Roaster/MyRoaster";
+import MapScreen from "src/screens/Map/Map";
 
 const CustomTabBarButton = ({ children, onPress, accessibilityState }: any) => {
   const focused = accessibilityState.selected;
@@ -46,7 +47,7 @@ const CustomTabBarButton = ({ children, onPress, accessibilityState }: any) => {
 
 
 export const ProviderBottomNavigation = () => {
-
+  const role=useAppSelector((state)=>state.auth.userType)
 
   const { width } = useWindowDimensions();
 
@@ -87,52 +88,68 @@ export const ProviderBottomNavigation = () => {
             headerShown: false,
             headerTitle: () => null,
             tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: "center" }} className="">
-                <Image source={require("../../assets/e-icon/home-olive.png")} style={{ width: 24, height: 24 }} />
-                {focused && <Text className="text-center w-[50]" style={{ color: "#FFFFFF",opacity:65, fontSize: 10 }}>Home</Text>}
+              <View style={{ alignItems: "center",gap:2 }} className="">
+                {focused?<Image source={require("../../assets/scout/scHomeAc.png")} style={{ width: 24, height: 24 }} />:<Image source={require("../../assets/scout/scoutHomeInactive.png")} style={{ width: 24, height: 24 }} />}
+                {focused ? <Text className="text-center w-[50]" style={{ color: "#FFFFFF", fontSize: 10 }}>Home</Text>:<Text className="text-center w-[50] text-[#fff]/65" style={{  fontSize: 10 }}>Home</Text>}
               </View>
             ),
             tabBarButton: (props) => <CustomTabBarButton {...props} />,
           }}
         />
 
+         {role==2 && <BottomTabs.Screen
+          name="Map"
+          component={MapScreen}
+          
+          options={{
+            headerShown:false,
+            tabBarIcon: ({ focused}) => (
+               <View style={{ alignItems: "center",gap:2 }} className="">
+                {focused?<Image source={require("../../assets/scout/scMap.png")} style={{ width: 24, height: 24 }} />:<Image source={require("../../assets/scout/scMapInactive.png")} style={{ width: 24, height: 24 }} />}
+                {focused ? <Text className="text-center w-[50]" style={{ color: "#FFFFFF", fontSize: 10 }}>Map</Text>:<Text className="text-center w-[50] text-[#fff]/65" style={{  fontSize: 10 }}>Map</Text>}
+              </View>
+            ),
+            tabBarButton: (props) => <CustomTabBarButton {...props} />,
+          }}
+        />}
 
-        <BottomTabs.Screen
+
+        {role==1 && <BottomTabs.Screen
           name="Confirmation"
           component={Confirmation}
           options={{
             tabBarIcon: ({ focused}) => (
-               <View style={{ alignItems: "center" }} className="">
-              <Image source={require("../../assets/e-icon/earning-olive.png")} style={{ width: 24, height: 24 }} />
-              {focused && <Text className="text-center w-[90]" style={{ color: "#2ECC71", fontSize: 10 }}>Confirmation</Text>}
+               <View style={{ alignItems: "center",gap:2 }} className="">
+                {focused?<Image source={require("../../assets/scout/confirmAxc.png")} style={{ width: 24, height: 24 }} />:<Image source={require("../../assets/scout/confirmIn.png")} style={{ width: 24, height: 24 }} />}
+                {focused ? <Text className="text-center w-[90]" style={{ color: "#FFFFFF", fontSize: 10 }}>Confirmation</Text>:<Text className="text-center w-[90] text-[#fff]/65" style={{  fontSize: 10 }}>Confirmation</Text>}
               </View>
             ),
             tabBarButton: (props) => <CustomTabBarButton {...props} />,
           }}
-        />
+        />}
 
-        <BottomTabs.Screen
+       {role==2 && <BottomTabs.Screen
           name="Roaster"
           component={MyRoaster}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: "center" }}>
-                <Image source={require("../../assets/e-icon/feed-olive.png")} style={{ width: 24, height: 24 }} />
-                {focused && <Text className="text-center w-[90]" style={{ color: "#2ECC71", fontSize: 10 }}>My Roaster</Text>}
+              <View style={{ alignItems: "center",gap:2 }} className="">
+                {focused?<Image source={require("../../assets/scout/roasterActiveSc.png")} style={{ width: 24, height: 24 }} />:<Image source={require("../../assets/scout/scROasterInactive.png")} style={{ width: 24, height: 24 }} />}
+                {focused ? <Text className="text-center w-[50]" style={{ color: "#FFFFFF", fontSize: 10 }}>My Roaster</Text>:<Text className="text-center w-[50] text-[#fff]/65" style={{  fontSize: 10 }}>My Roaster</Text>}
               </View>
             ),
             tabBarButton: (props) => <CustomTabBarButton {...props} />,
           }}
-        />
+        />}
 
          <BottomTabs.Screen
           name="LeaderBoard"
           component={LeaderBoard}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: "center" }}>
-                <Image source={require("../../assets/e-icon/feed-olive.png")} style={{ width: 24, height: 24 }} />
-                {focused && <Text className="text-center w-[90]" style={{ color: "#2ECC71", fontSize: 10 }}>Leader Board</Text>}
+              <View style={{ alignItems: "center",gap:2 }} className="">
+                {focused?<Image source={require("../../assets/scout/scLbAc.png")} style={{ width: 24, height: 24 }} />:<Image source={require("../../assets/scout/scLbIn.png")} style={{ width: 24, height: 24 }} />}
+                {focused ? <Text className="text-center w-[90]" style={{ color: "#FFFFFF", fontSize: 10 }}>Leader Board</Text>:<Text className="text-center w-[90] text-[#fff]/65" style={{  fontSize: 10 }}>Leader Board</Text>}
               </View>
             ),
             tabBarButton: (props) => <CustomTabBarButton {...props} />,
@@ -144,10 +161,9 @@ export const ProviderBottomNavigation = () => {
           component={Profile}
           options={{
             tabBarIcon: ({ focused }) => (
-              <View style={{ alignItems: "center" }} className="">
-
-                <Image source={require("../../assets/e-icon/profile-olive.png")} style={{ width: 24, height: 24 }} />
-                {focused && <Text className="text-center w-[50]" style={{ color: "#2ECC71", fontSize: 10 }}>Profile</Text>}
+              <View style={{ alignItems: "center",gap:2 }} className="">
+                {focused?<Image source={require("../../assets/scout/profileAc.png")} style={{ width: 24, height: 24 }} />:<Image source={require("../../assets/scout/profileIn.png")} style={{ width: 24, height: 24 }} />}
+                {focused ? <Text className="text-center w-[90]" style={{ color: "#FFFFFF", fontSize: 10 }}>Profile</Text>:<Text className="text-center w-[90] text-[#fff]/65" style={{  fontSize: 10 }}>Profile</Text>}
               </View>
             ),
             tabBarButton: (props) => <CustomTabBarButton {...props} />,
